@@ -65,11 +65,38 @@ Detailed study guide notes on how generative models work, model selection criter
 
 ---
 
-## 3. Original Syllabus
+## 3. AI Workload Types
+
+Detailed study guide notes on identifying and mapping AI workload types to Azure services.
+
+> [!NOTE]
+> All detailed study guides, mappings, exam questions, and architecture challenges for workload types are maintained in the dedicated guide: **[AI Workload Types Guide](AI-Workload-Types.md)**.
+
+### 3.1 Workload Categories & Scenarios
+- Core categories: Generative AI, Agentic AI, Text Analysis, Speech, Computer Vision, Information Extraction.
+- Service mappings: Azure OpenAI, Azure AI Agent Service, Azure Language, Azure Speech, Azure Vision, Azure Content Understanding.
+
+---
+
+## 4. Prompt Engineering
+
+Detailed study guide notes on system and user prompt design, API formatting, Python code SDK calls, and error handling.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for prompt engineering are maintained in the dedicated guide: **[Prompt Engineering Guide](Prompt-Engineering.md)**.
+
+### 4.1 System and User Prompts
+- Core concepts: System, user, and assistant roles, token arrays, context memory limits.
+- Design principles: Role definitions, behavioral constraints, format templates, in-context zero/few-shot learning, chain-of-thought, grounding.
+- Code & errors: `azure-ai-projects` and `openai` clients, zero-shot/few-shot loops, grounded RAG variables, rate limit handlers.
+
+---
+
+## 5. Original Syllabus
 
 Extracted from Microsoft Study Guides for the Microsoft AI-901 Certification (Skills measured as of April 15, 2026).
 
-### 3.1 Audience Profile & Skills at a Glance
+### 5.1 Audience Profile & Skills at a Glance
 
 **Candidate Profile:** Designed for candidates at the beginning of their career in AI solution development. Candidates should have conceptual knowledge of AI solutions in Azure, Foundational technical skills to work with them, knowledge of Python coding syntax, and familiarity with Azure resources.
 
@@ -77,7 +104,7 @@ Extracted from Microsoft Study Guides for the Microsoft AI-901 Certification (Sk
 - Identify AI concepts and responsibilities (40–45%)
 - Implement AI solutions by using Microsoft Foundry (55–60%)
 
-### 3.2 Identify AI Concepts and Capabilities (40–45%)
+### 5.2 Identify AI Concepts and Capabilities (40–45%)
 
 **Describe principles of responsible AI:**
 - Describe considerations for fairness in an AI solution
@@ -99,7 +126,7 @@ Extracted from Microsoft Study Guides for the Microsoft AI-901 Certification (Sk
 - Identify features and capabilities of computer vision and image-generation models
 - Identify techniques to extract information from text, images, audio, and videos
 
-### 3.3 Implement AI Solutions by using Microsoft Foundry (55–60%)
+### 5.3 Implement AI Solutions by using Microsoft Foundry (55–60%)
 
 **Implement generative AI apps and agents by using Foundry:**
 - Create effective system and user prompts for generative AI models
