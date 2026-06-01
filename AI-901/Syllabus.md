@@ -3,6 +3,10 @@
 **Certification Code:** AI-901  
 **Issuing Organization:** Microsoft  
 
+> [!IMPORTANT]
+> **Exam Experience Guide (Scenario-Based):** Built from real exam feedback — all content in scenario/multiple-choice format mirroring the actual exam structure.
+> → **[Exam Scenario Guide](Exam-Scenario-Guide.md)**
+
 ---
 
 ## 1. AI Responsibility Principles
@@ -140,7 +144,88 @@ Detailed study guide notes on wiring a lightweight client that delegates all sta
 
 ---
 
-## 9. Original Syllabus
+## 9. Text Analysis & Speech
+
+Detailed study guide notes on building lightweight text analysis applications with Azure AI Language, the spoken-prompt architecture (STT → GPT-4o → TTS), and Azure AI Speech SDK patterns.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for text analysis and speech are maintained in the dedicated guide: **[Text Analysis & Speech Guide](Text-Analysis-and-Speech.md)**.
+
+### 9.1 Text Analysis — Azure AI Language
+- Core capabilities: Key phrase extraction, Named Entity Recognition (NER), sentiment analysis (with opinion mining), abstractive/extractive summarization.
+- Exam trap: Text analysis ≠ information extraction. Text analysis = unstructured prose. Information extraction = structured forms/fields.
+- SDK pattern: `TextAnalyticsClient`, batch processing, per-document error handling.
+
+### 9.2 Spoken Prompts with a Multimodal Model
+- Architecture: Azure AI Speech STT → text to GPT-4o → response text to Azure AI Speech TTS → spoken audio.
+- GPT-4o accepts text + image, NOT raw audio — speech wrapping is mandatory.
+- `SpeechRecognizer` for input; `SpeechSynthesizer` for output; `en-US-AriaNeural` neural voice.
+
+### 9.3 Lightweight Speech Application
+- STT from microphone: `AudioConfig(use_default_microphone=True)`.
+- STT from file: `AudioConfig(filename=...)` for pre-recorded audio.
+- Real-time translation: `TranslationRecognizer` with source + target language config.
+- Batch transcription: REST API for large-volume async processing.
+
+---
+
+## 10. Computer Vision & Image Generation
+
+Detailed study guide notes on GPT-4o multimodal visual input, DALL-E 3 / gpt-image-1 image generation, and Azure AI Vision structured image analysis.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for computer vision and image generation are maintained in the dedicated guide: **[Computer Vision & Image Generation Guide](Computer-Vision-and-Image-Generation.md)**.
+
+### 10.1 Interpreting Visual Input — GPT-4o Multimodal
+- Multimodal = text + image in the same prompt → text output.
+- Two encoding methods: base64 local file, or public URL.
+- `detail` parameter: `"low"` (85 tokens, fast), `"high"` (up to 1,105 tokens, detailed analysis).
+- Exam signal: "reason about an image" + natural language question → GPT-4o multimodal.
+
+### 10.2 Image Generation — DALL-E 3 and gpt-image-1
+- DALL-E 3: text prompt → new image. Parameters: size, quality (`standard`/`hd`), style (`vivid`/`natural`), n=1 only.
+- gpt-image-1: text + optional image → new/edited image (inpainting, variation).
+- `revised_prompt` in response: DALL-E 3 rewrites prompts for quality/safety — expected behavior.
+- Exam signal: "generate a new image" → DALL-E 3 / gpt-image-1, NOT GPT-4o.
+
+### 10.3 Lightweight Vision Application
+- Azure AI Vision: structured output (labels, bounding boxes, OCR text) — NOT natural language reasoning.
+- `VisualFeatures.READ` = OCR. `VisualFeatures.OBJECTS` = object detection.
+- Decision rule: "reason about what you see" → GPT-4o. "count/locate/extract text" → Azure AI Vision.
+
+---
+
+## 11. Information Extraction
+
+Detailed study guide notes on extracting structured fields from documents, forms, images, audio, and video using Azure Content Understanding.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for information extraction are maintained in the dedicated guide: **[Information Extraction Guide](Information-Extraction.md)**.
+
+### 11.1 What Is Information Extraction?
+- Purpose: extract specific named fields from structured/semi-structured sources as JSON.
+- Service: Azure Content Understanding (successor to Azure Form Recognizer / Document Intelligence).
+- Modalities: Documents/PDFs, images (photos of forms), audio recordings, video files.
+- Exam trap: OCR = all text verbatim. Information extraction = specific named fields from known structure.
+
+### 11.2 Documents and Forms
+- SDK: `DocumentIntelligenceClient` + `begin_analyze_document()`.
+- Prebuilt models: `prebuilt-invoice`, `prebuilt-receipt`, `prebuilt-idDocument`, `prebuilt-contract`, `prebuilt-read`.
+- Confidence scores: flag low-confidence fields for human review before ERP ingestion.
+
+### 11.3 Images
+- Same SDK and API as documents — Content Understanding handles the modality automatically.
+- Common use: photographed government IDs (`prebuilt-idDocument`), handwritten expense photos (custom model).
+
+### 11.4 Audio and Video
+- REST API pattern: submit job → poll `operation-location` header until `succeeded`.
+- Audio: transcribes + extracts fields in one pipeline (no separate STT step).
+- Video: transcripts, key moments, chapter segments, visual scene analysis.
+- Exam signal: "extract fields from audio/video" → Content Understanding, not STT + Language.
+
+---
+
+## 12. Original Syllabus
 
 Extracted from Microsoft Study Guides for the Microsoft AI-901 Certification (Skills measured as of April 15, 2026).
 
