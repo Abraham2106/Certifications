@@ -83,7 +83,7 @@ Detailed study guide notes on identifying and mapping AI workload types to Azure
 Detailed study guide notes on system and user prompt design, API formatting, Python code SDK calls, and error handling.
 
 > [!NOTE]
-> All detailed study guides, Python implementations, exam questions, and coding challenges for prompt engineering are maintained in the dedicated guide: **[Prompt Engineering Guide](Prompt-Engineering.md)**.
+> All detailed study guides, Python implementations, exam questions, and coding challenges for prompt engineering are maintained in the dedicated guide: **[Prompt Engineering Guide](Prompt-Engineering-System%20and%20User%20Prompts.md)**.
 
 ### 4.1 System and User Prompts
 - Core concepts: System, user, and assistant roles, token arrays, context memory limits.
@@ -92,7 +92,55 @@ Detailed study guide notes on system and user prompt design, API formatting, Pyt
 
 ---
 
-## 5. Original Syllabus
+## 6. Lightweight Chat Client
+
+Detailed study guide notes on building a minimum viable chat client with the Foundry SDK: authentication, conversation loops, history management, context window handling, and error recovery.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for the lightweight chat client are maintained in the dedicated guide: **[Lightweight & Agent Clients Guide](Lightweight-and-Agent-Clients.md)**.
+
+### 6.1 Lightweight Chat Client — Foundry SDK
+- Core architecture: `AIProjectClient` + `get_openai_client()`, `DefaultAzureCredential`.
+- History management: Client-side `conversation_history` list, sliding-window trimming to prevent context overflow.
+- Error handling: `AuthenticationError`, `RateLimitError`, `APIError`.
+
+---
+
+## 7. Single-Agent Solutions
+
+Detailed study guide notes on designing and coding single-agent solutions in the Foundry portal and with the Python SDK: built-in tools, the agent execution model, threads, runs, and run status lifecycle.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for single-agent solutions are maintained in the dedicated guide: **[Lightweight & Agent Clients Guide](Lightweight-and-Agent-Clients.md)**.
+
+### 7.1 Single-Agent — Concepts and Portal
+- Core distinction: chat client (stateless) vs. agent (tools + managed state + orchestration loop).
+- Built-in tools: Code Interpreter (Hyper-V sandbox, 1 hr session), File Search (vector search), Web Search, Function Calling.
+- Portal path: Agents → New Agent → configure name, model, instructions, tools, knowledge → test in Agent Playground.
+
+### 7.2 Single-Agent — Python SDK
+- Core primitives: agent (configuration + tools), thread (server-side conversation state), message, run.
+- Run status lifecycle: `queued` → `in_progress` → `requires_action` / `completed` / `failed` / `cancelled`.
+- `requires_action`: signals the agent is waiting for a custom function result — does NOT apply to Code Interpreter.
+
+---
+
+## 8. Lightweight Client Application for an Agent
+
+Detailed study guide notes on wiring a lightweight client that delegates all state management to the Foundry Agent Service: polling loop, run lifecycle, thread isolation per session, and comparison with direct chat clients.
+
+> [!NOTE]
+> All detailed study guides, Python implementations, exam questions, and coding challenges for the agent client are maintained in the dedicated guide: **[Lightweight & Agent Clients Guide](Lightweight-and-Agent-Clients.md)**.
+
+### 8.1 Lightweight Agent Client
+- State management: server-side Thread vs. client-side `conversation_history` list.
+- Polling pattern: `_poll_run()` loop until `COMPLETED`, `FAILED`, or `CANCELLED`.
+- Session isolation: one thread per user session; delete thread on session end.
+- Cleanup responsibility: delete threads to avoid resource accumulation.
+
+---
+
+## 9. Original Syllabus
 
 Extracted from Microsoft Study Guides for the Microsoft AI-901 Certification (Skills measured as of April 15, 2026).
 
